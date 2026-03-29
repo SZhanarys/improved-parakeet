@@ -1,0 +1,11 @@
+server:
+  port: 9000
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/invision_db
+    username: postgres
+    password: SZGzhako2010
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

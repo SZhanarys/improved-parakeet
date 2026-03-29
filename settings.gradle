@@ -1,0 +1,4 @@
+rootProject.name = 'invision-project'
+
+include 'invision-main-api'
+include 'invision-ai-analyzer'
