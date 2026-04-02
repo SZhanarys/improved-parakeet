@@ -26,7 +26,7 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Future<void> _submit() async {
-    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+    if (_emailController.text.trim().isEmpty || _passwordController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please fill all fields')),
       );
@@ -44,27 +44,30 @@ class _AuthScreenState extends State<AuthScreen> {
       if (!mounted) {
         return;
       }
-
       setState(() => _isLoading = false);
 
       if (userData != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Welcome back!')),
-        );
+        final userId = userData['id'] as int?;
+        final role = (userData['role'] ?? 'CANDIDATE').toString();
+
+        if (userId == null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Login failed: user id is missing')),
+          );
+          return;
+        }
 
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (_) => HomeScreen(
-              userId: userData['id'] as int,
-              role: userData['role'] as String,
-            ),
+            builder: (_) => HomeScreen(userId: userId, role: role),
           ),
         );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Login failed: invalid email or password')),
-        );
+        return;
       }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Login failed: invalid email or password')),
+      );
       return;
     }
 
@@ -76,79 +79,88 @@ class _AuthScreenState extends State<AuthScreen> {
     if (!mounted) {
       return;
     }
-
     setState(() => _isLoading = false);
 
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account created. You can log in now.')),
+        const SnackBar(content: Text('Account created. Now you can login.')),
       );
       setState(() => _isLogin = true);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Registration failed. Email may already exist.')),
-      );
+      return;
     }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Registration failed. Email might be taken.')),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.lock_person, size: 80, color: Colors.blue.shade600),
-              const SizedBox(height: 20),
-              Text(
-                _isLogin ? 'Welcome to Invision' : 'Create Account',
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 30),
-              TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.email),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 420),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.lock_person, size: 80, color: Colors.blue),
+                const SizedBox(height: 20),
+                Text(
+                  _isLogin ? 'Welcome to Invision' : 'Create Account',
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 16),
-              TextField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                  border: OutlineInputBorder(),
-                  prefixIcon: Icon(Icons.lock),
+                const SizedBox(height: 30),
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    labelText: 'Email',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.email),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
                 ),
-                obscureText: true,
-              ),
-              const SizedBox(height: 24),
-              _isLoading
-                  ? const CircularProgressIndicator()
-                  : SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: _submit,
-                        child: Text(_isLogin ? 'LOGIN' : 'REGISTER'),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.lock),
+                  ),
+                  obscureText: true,
+                ),
+                const SizedBox(height: 24),
+                _isLoading
+                    ? const CircularProgressIndicator()
+                    : SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: _submit,
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: Text(_isLogin ? 'LOGIN' : 'REGISTER'),
+                        ),
                       ),
-                    ),
-              const SizedBox(height: 16),
-              TextButton(
-                onPressed: () {
-                  setState(() => _isLogin = !_isLogin);
-                },
-                child: Text(
-                  _isLogin
-                      ? "Don't have an account? Register now"
-                      : 'Already have an account? Login',
+                const SizedBox(height: 16),
+                TextButton(
+                  onPressed: () {
+                    setState(() => _isLogin = !_isLogin);
+                  },
+                  child: Text(
+                    _isLogin
+                        ? "Don't have an account? Register now"
+                        : "Already have an account? Login",
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

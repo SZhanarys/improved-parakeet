@@ -17,6 +17,11 @@ class ApiConstants {
   static String get baseUrl => 'http://$host:9000/api';
   static String get loginUrl => '$baseUrl/auth/login';
   static String get registerUrl => '$baseUrl/auth/register';
-  static String profileUrl(int userId) => '$baseUrl/users/$userId/profile';
-  static String ratingUrl(String role) => '$baseUrl/users/list?requesterRole=$role';
+  static String questionnaireUrl(int userId, int requesterId) =>
+      '$baseUrl/users/$userId/questionnaire?requesterId=$requesterId';
+  static String questionnaireStatusUrl(int userId, int requesterId) =>
+      '$baseUrl/users/$userId/questionnaire-status?requesterId=$requesterId';
+  static String ratingUrl(int requesterId) => '$baseUrl/users/list?requesterId=$requesterId';
+  static String candidateDetailsUrl(int userId, int requesterId) =>
+      '$baseUrl/users/$userId/details?requesterId=$requesterId';
 }

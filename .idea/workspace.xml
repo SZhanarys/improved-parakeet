@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="32fbd979-434a-4c50-bbb0-ab334a1bfcb4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/invision-main-api/src/main/java/kz/invision/mainapi/core/services/CandidateNormalizationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/ai-analyzer.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-main-api/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-main-api/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-main-api/src/main/java/kz/invision/mainapi/api/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/src/main/java/kz/invision/mainapi/api/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-main-api/src/main/java/kz/invision/mainapi/core/services/CandidateAnalysisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/src/main/java/kz/invision/mainapi/core/services/CandidateAnalysisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-main-api/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.metadata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/analysis_options.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/core/constants/api_constants.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/data/services/auth_service.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/main.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/auth_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/home_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/profile_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/rating_screen.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/pubspec.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/pubspec.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/web/favicon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/web/icons/Icon-192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/web/icons/Icon-512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/web/icons/Icon-maskable-192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/web/icons/Icon-maskable-512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/web/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/web/manifest.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="46" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/invision-ai-analyzer">
+      <ProjectState />
+    </projectState>
+    <projectState path="$PROJECT_DIR$/invision-main-api">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/invision-ai-analyzer">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ai-analyzer" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="main-api" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="3BaX44RI7lpfxi6otasSqWnxJ8i" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build invision-ai-analyzer.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build invision-main-api.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.AnalyzerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.MainApiApplication.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sapar\IdeaProjects\invision-platform\invision-main-api" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MainApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="main-api.main" />
+      <selectedOptions>
+        <option name="environmentVariables" />
+      </selectedOptions>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kz.invision.mainapi.MainApiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="32fbd979-434a-4c50-bbb0-ab334a1bfcb4" name="Changes" comment="" />
+      <created>1774727960414</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1774727960414</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
