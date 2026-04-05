@@ -5,35 +5,96 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="32fbd979-434a-4c50-bbb0-ab334a1bfcb4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/invision-main-api/src/main/java/kz/invision/mainapi/core/services/CandidateNormalizationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/ai-analyzer.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision-main-api/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision-main-api/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision-main-api/src/main/java/kz/invision/mainapi/api/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/src/main/java/kz/invision/mainapi/api/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision-main-api/src/main/java/kz/invision/mainapi/core/services/CandidateAnalysisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/src/main/java/kz/invision/mainapi/core/services/CandidateAnalysisService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision-main-api/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/.metadata" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/analysis_options.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/lib/core/constants/api_constants.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/lib/data/services/auth_service.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/lib/main.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/auth_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/home_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/profile_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/rating_screen.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/pubspec.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/pubspec.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/web/favicon.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/web/icons/Icon-192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/web/icons/Icon-512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/web/icons/Icon-maskable-192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/web/icons/Icon-maskable-512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/web/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/invision_app/web/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/8.7/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/classes/java/main/kz/invision/analyzer/api/AnalysisController.class" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/build/classes/java/main/kz/invision/analyzer/api/AnalysisController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/classes/java/main/kz/invision/analyzer/services/AiAnalyzerService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/classes/java/test/kz/invision/aianalyzer/InvisionAiAnalyzerApplicationTests.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/libs/ai-analyzer-0.0.1-SNAPSHOT-plain.jar" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/build/libs/ai-analyzer-0.0.1-SNAPSHOT-plain.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/libs/ai-analyzer-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/build/libs/ai-analyzer-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/build/reports/tests/test/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/tmp/bootJar/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/build/tmp/bootJar/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/tmp/compileJava/compileTransaction/stash-dir/AiAnalyzerService.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/tmp/compileJava/compileTransaction/stash-dir/AnalysisController.class.uniqueId0" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/build/tmp/compileJava/compileTransaction/stash-dir/AnalysisController.class.uniqueId0" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/src/main/java/kz/invision/analyzer/api/AnalysisController.java" beforeDir="false" afterPath="$PROJECT_DIR$/invision-ai-analyzer/src/main/java/kz/invision/analyzer/api/AnalysisController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/src/main/java/kz/invision/analyzer/services/AiAnalyzerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-ai-analyzer/src/test/java/kz/invision/aianalyzer/InvisionAiAnalyzerApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-main-api/.gradle/8.7/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/.gradle/8.7/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-main-api/.gradle/8.7/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/.gradle/8.7/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-main-api/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision-main-api/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/invision-main-api/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/BrowsingTopicsState" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/BrowsingTopicsState" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/DIPS" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/DIPS" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Rules/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Rules/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Rules/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Rules/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Rules/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Rules/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Scripts/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Scripts/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Scripts/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Scripts/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Scripts/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension Scripts/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension State/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension State/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension State/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension State/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension State/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Extension State/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Favicons" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Favicons" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/GCM Store/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/GCM Store/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/GCM Store/Encryption/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/GCM Store/Encryption/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/GCM Store/Encryption/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/GCM Store/Encryption/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/GCM Store/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/GCM Store/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/History" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/History" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Local Storage/leveldb/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Local Storage/leveldb/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Local Storage/leveldb/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Local Storage/leveldb/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Local Storage/leveldb/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Local Storage/leveldb/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Login Data" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Login Data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Network Action Predictor" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Network Action Predictor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Network/Cookies" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Network/Cookies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Network/Network Persistent State" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Network/Network Persistent State" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Network/Reporting and NEL" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Network/Reporting and NEL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Network/TransportSecurity" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Network/TransportSecurity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Preferences" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Preferences" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Secure Preferences" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Secure Preferences" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Service Worker/Database/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Service Worker/Database/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Service Worker/Database/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Service Worker/Database/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Service Worker/ScriptCache/index-dir/the-real-index" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Service Worker/ScriptCache/index-dir/the-real-index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Session Storage/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Session Storage/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Session Storage/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Session Storage/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Session Storage/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Session Storage/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Shared Dictionary/cache/index-dir/the-real-index" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Shared Dictionary/cache/index-dir/the-real-index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Shared Dictionary/db" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Shared Dictionary/db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Shortcuts" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Shortcuts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Site Characteristics Database/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Site Characteristics Database/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Site Characteristics Database/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Site Characteristics Database/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Site Characteristics Database/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Site Characteristics Database/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Sync Data/LevelDB/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Sync Data/LevelDB/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Sync Data/LevelDB/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Sync Data/LevelDB/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Web Data" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/Web Data" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/WebStorage/QuotaManager" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/WebStorage/QuotaManager" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/passkey_enclave_state" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/passkey_enclave_state" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/000026.log" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/000026.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/metadata/000003.log" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/metadata/000003.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/metadata/LOG" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/metadata/LOG" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/metadata/LOG.old" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/.dart_tool/chrome-device/Default/shared_proto_db/metadata/LOG.old" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/build/ca33f282d90356a564f3e3da52c97351.cache.dill.track.dill" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/build/ca33f282d90356a564f3e3da52c97351.cache.dill.track.dill" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/data/services/user_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/lib/data/services/user_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/auth_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/lib/presentation/screens/auth_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/candidate_compare_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/lib/presentation/screens/candidate_compare_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/candidate_details_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/lib/presentation/screens/candidate_details_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/home_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/lib/presentation/screens/home_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/lib/presentation/screens/profile_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invision_app/lib/presentation/screens/rating_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/invision_app/lib/presentation/screens/rating_screen.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +102,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="46" />
+    <option name="cachedIndexableFilesCount" value="53" />
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$/invision-ai-analyzer">

@@ -16,7 +16,7 @@ class InvisionApp extends StatelessWidget {
       valueListenable: AppThemeController.themeMode,
       builder: (context, themeMode, _) {
         return MaterialApp(
-          title: 'Invision Platform',
+          title: 'Платформа Invision',
           debugShowCheckedModeBanner: false,
           themeMode: themeMode,
           theme: ThemeData(

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InVision AI Analyzer</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="page-shell">
+    <div class="ambient ambient-left"></div>
+    <div class="ambient ambient-right"></div>
+
+    <header class="hero">
+        <div class="hero-copy">
+            <div class="eyebrow">Hackathon-ready hiring intelligence</div>
+            <h1>Analyze candidates like a sharp recruiter, not a random score generator.</h1>
+            <p class="hero-text">
+                InVision AI Analyzer turns a raw profile into a structured audit: role fit, delivery strength,
+                communication signals, hiring risks, and an interview pack your team can act on immediately.
+            </p>
+            <div class="hero-chips">
+                <span>Explainable scoring</span>
+                <span>Interview questions</span>
+                <span>Signal-based recommendations</span>
+            </div>
+        </div>
+
+        <aside class="hero-panel">
+            <div class="panel-glow"></div>
+            <div class="panel-label">Signal Radar</div>
+            <div class="metric-big">
+                <span id="previewScore">87</span>
+                <small>demo score</small>
+            </div>
+            <div class="metric-list">
+                <div>
+                    <strong>Role Match</strong>
+                    <span>91</span>
+                </div>
+                <div>
+                    <strong>Delivery</strong>
+                    <span>84</span>
+                </div>
+                <div>
+                    <strong>Communication</strong>
+                    <span>78</span>
+                </div>
+                <div>
+                    <strong>Growth</strong>
+                    <span>82</span>
+                </div>
+            </div>
+        </aside>
+    </header>
+
+    <main class="content-grid">
+        <section class="card launchpad-card">
+            <div class="section-head">
+                <div>
+                    <span class="section-kicker">Visible from zero</span>
+                    <h2>Hiring Command Center</h2>
+                </div>
+                <p>The page now starts with ready demo candidates, shortlist signals and a visible workspace instead of an empty block.</p>
+            </div>
+
+            <div class="launchpad-grid">
+                <article>
+                    <strong>Live demo candidates</strong>
+                    <p>The candidate list is prefilled on first load so the screen never looks empty during a presentation.</p>
+                </article>
+                <article>
+                    <strong>Shortlist controls</strong>
+                    <p>Search, filter and save strong candidates directly from the list view.</p>
+                </article>
+                <article>
+                    <strong>Detail side panel</strong>
+                    <p>One click opens the candidate breakdown with strengths, risks and score signals.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="card form-card">
+            <div class="section-head">
+                <div>
+                    <span class="section-kicker">Candidate input</span>
+                    <h2>Run analysis</h2>
+                </div>
+                <p>Paste a concise candidate profile and get a clean, demo-ready evaluation.</p>
+            </div>
+
+            <form id="analysisForm" class="analysis-form">
+                <label>
+                    <span>Candidate name</span>
+                    <input type="text" name="candidateName" placeholder="Aruzhan Sarsen" required>
+                </label>
+
+                <label>
+                    <span>Target role</span>
+                    <input type="text" name="targetRole" placeholder="Java Backend Engineer" required>
+                </label>
+
+                <label>
+                    <span>Core skills</span>
+                    <textarea name="skills" rows="3" placeholder="Java, Spring Boot, PostgreSQL, Docker, Kafka, REST APIs" required></textarea>
+                </label>
+
+                <label>
+                    <span>Experience years</span>
+                    <input type="number" name="experienceYears" min="0" max="40" value="3" required>
+                </label>
+
+                <label>
+                    <span>Candidate summary</span>
+                    <textarea name="summary" rows="7" placeholder="Built production APIs, improved performance, worked with product team, owned integrations, wrote tests, mentored juniors..." required></textarea>
+                </label>
+
+                <div class="form-actions">
+                    <button type="submit" id="submitButton">Analyze candidate</button>
+                    <button type="button" id="fillDemoButton" class="secondary-button">Load demo profile</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="card insights-card">
+            <div class="section-head">
+                <div>
+                    <span class="section-kicker">Killer feature</span>
+                    <h2>Actionable hiring pack</h2>
+                </div>
+                <p>Not just score. The system gives the interviewer a prepared route for the next step.</p>
+            </div>
+
+            <div class="feature-stack">
+                <article>
+                    <h3>Explainable audit</h3>
+                    <p>Every result is broken into role fit, delivery, communication, and growth instead of opaque AI magic.</p>
+                </article>
+                <article>
+                    <h3>Interview pack</h3>
+                    <p>Generated questions adapt to stack signals so the product feels operational, not decorative.</p>
+                </article>
+                <article>
+                    <h3>Risk-first review</h3>
+                    <p>Weak evidence is surfaced directly, which makes the demo look mature and decision-oriented.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="card results-card" id="resultsCard">
+            <div class="empty-state" id="emptyState">
+                <span class="section-kicker">Results</span>
+                <h2>Analysis will appear here</h2>
+                <p>Run the form to see score breakdown, strengths, risks, recommendations, and the interview plan.</p>
+            </div>
+
+            <div class="results hidden" id="results">
+                <div class="result-topline">
+                    <div>
+                        <span class="section-kicker">Candidate verdict</span>
+                        <h2 id="candidateTitle">Candidate Name</h2>
+                        <p id="headlineText"></p>
+                    </div>
+                    <div class="score-orb">
+                        <span id="overallScore">0</span>
+                        <small id="readinessLabel">Pending</small>
+                    </div>
+                </div>
+
+                <div class="badges" id="badges"></div>
+
+                <div class="summary-box" id="summaryText"></div>
+                <div class="meta-bar" id="metaBar"></div>
+
+                <div class="score-grid">
+                    <article><span>Role match</span><strong id="roleMatchScore">0</strong></article>
+                    <article><span>Delivery</span><strong id="deliveryScore">0</strong></article>
+                    <article><span>Communication</span><strong id="communicationScore">0</strong></article>
+                    <article><span>Growth</span><strong id="growthScore">0</strong></article>
+                </div>
+
+                <div class="detail-grid">
+                    <section>
+                        <h3>Strengths</h3>
+                        <ul id="strengthsList"></ul>
+                    </section>
+                    <section>
+                        <h3>Risks</h3>
+                        <ul id="risksList"></ul>
+                    </section>
+                    <section>
+                        <h3>Recommendations</h3>
+                        <ul id="recommendationsList"></ul>
+                    </section>
+                    <section>
+                        <h3>Interview questions</h3>
+                        <ul id="questionsList"></ul>
+                    </section>
+                </div>
+            </div>
+        </section>
+
+        <section class="card compare-card">
+            <div class="section-head">
+                <div>
+                    <span class="section-kicker">Hiring workspace</span>
+                    <h2>Candidate list</h2>
+                </div>
+                <p>Search, filter, compare and shortlist candidates without leaving the page.</p>
+            </div>
+
+            <div class="workspace-stats" id="workspaceStats">
+                <article>
+                    <span>Total</span>
+                    <strong id="statTotal">0</strong>
+                </article>
+                <article>
+                    <span>Strong shortlist</span>
+                    <strong id="statStrong">0</strong>
+                </article>
+                <article>
+                    <span>Worth interview</span>
+                    <strong id="statInterview">0</strong>
+                </article>
+                <article>
+                    <span>Saved shortlist</span>
+                    <strong id="statSaved">0</strong>
+                </article>
+            </div>
+
+            <div class="workspace-toolbar">
+                <label class="toolbar-search">
+                    <span>Search</span>
+                    <input type="text" id="historySearch" placeholder="Search by candidate or role">
+                </label>
+                <label>
+                    <span>Status</span>
+                    <select id="historyFilter">
+                        <option value="all">All candidates</option>
+                        <option value="Strong shortlist">Strong shortlist</option>
+                        <option value="Worth interview">Worth interview</option>
+                        <option value="Needs evidence">Needs evidence</option>
+                        <option value="High risk">High risk</option>
+                        <option value="saved">Saved shortlist</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="history-grid" id="historyGrid">
+                <div class="history-empty">No analyzed candidates yet.</div>
+            </div>
+
+            <div class="workspace-panels">
+                <div class="compare-shell">
+                    <div class="compare-controls">
+                        <label>
+                            <span>Candidate A</span>
+                            <select id="compareLeft"></select>
+                        </label>
+                        <label>
+                            <span>Candidate B</span>
+                            <select id="compareRight"></select>
+                        </label>
+                        <button type="button" id="compareButton" class="secondary-button">Compare instantly</button>
+                    </div>
+
+                    <div class="compare-panel hidden" id="comparePanel">
+                        <div class="compare-columns">
+                            <article id="compareLeftCard"></article>
+                            <article id="compareRightCard"></article>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="candidate-detail">
+                    <div class="candidate-detail-empty" id="candidateDetailEmpty">
+                        Select a candidate card to open a detail view with fit signals and next steps.
+                    </div>
+                    <div class="candidate-detail-body hidden" id="candidateDetailBody">
+                        <div class="candidate-detail-top">
+                            <div>
+                                <span class="section-kicker">Detail view</span>
+                                <h3 id="detailName">Candidate</h3>
+                                <p id="detailRole"></p>
+                            </div>
+                            <div class="detail-score">
+                                <strong id="detailScore">0</strong>
+                                <small id="detailReadiness">Pending</small>
+                            </div>
+                        </div>
+                        <div class="detail-tags" id="detailTags"></div>
+                        <div class="detail-note" id="detailNote"></div>
+                        <div class="detail-mini-grid">
+                            <article>
+                                <span>Role match</span>
+                                <strong id="detailRoleMatch">0</strong>
+                            </article>
+                            <article>
+                                <span>Delivery</span>
+                                <strong id="detailDelivery">0</strong>
+                            </article>
+                            <article>
+                                <span>Communication</span>
+                                <strong id="detailCommunication">0</strong>
+                            </article>
+                            <article>
+                                <span>Growth</span>
+                                <strong id="detailGrowth">0</strong>
+                            </article>
+                        </div>
+                        <div class="detail-columns">
+                            <section>
+                                <h4>Top strengths</h4>
+                                <ul id="detailStrengths"></ul>
+                            </section>
+                            <section>
+                                <h4>Key risks</h4>
+                                <ul id="detailRisks"></ul>
+                            </section>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section class="card spotlight-card">
+            <div class="section-head">
+                <div>
+                    <span class="section-kicker">Demo polish</span>
+                    <h2>Smart shortcuts</h2>
+                </div>
+                <p>Small features that make the product feel complete during a live demo.</p>
+            </div>
+
+            <div class="spotlight-grid">
+                <article>
+                    <h3>Shortlist mode</h3>
+                    <p>Mark strong candidates and instantly filter the list down to decision-ready people.</p>
+                </article>
+                <article>
+                    <h3>Zero-friction compare</h3>
+                    <p>Use recent analyses for side-by-side comparison without waiting for another backend request.</p>
+                </article>
+                <article>
+                    <h3>Detail workspace</h3>
+                    <p>Open one candidate and immediately show score signals, risks and next interview direction.</p>
+                </article>
+                <article>
+                    <h3>Live hiring snapshot</h3>
+                    <p>Stats at the top make the page feel alive and remove the empty-state look from the list section.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

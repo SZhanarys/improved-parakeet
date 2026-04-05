@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/analysis/candidate_ai_tools.dart';
 import '../../core/ui/responsive.dart';
 import '../../core/ui/theme_toggle_button.dart';
 import '../../data/services/user_service.dart';
@@ -57,7 +58,10 @@ class _CandidateCompareScreenState extends State<CandidateCompareScreen> {
         _secondCandidate = result?['secondCandidate'] as Map<String, dynamic>?;
         _comparison = result?['comparison'] as Map<String, dynamic>?;
         _isLoading = false;
-        _hasError = result == null || _firstCandidate == null || _secondCandidate == null;
+        _hasError =
+            result == null ||
+            _firstCandidate == null ||
+            _secondCandidate == null;
       });
     } catch (_) {
       if (!mounted) {
@@ -82,29 +86,29 @@ class _CandidateCompareScreenState extends State<CandidateCompareScreen> {
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _hasError || _firstCandidate == null || _secondCandidate == null
-              ? Center(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      maxWidth: AppResponsive.contentMaxWidth(context),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(inset),
-                      child: _CompareStateCard(
-                        icon: Icons.compare_arrows_rounded,
-                        title: 'Не удалось собрать сравнение',
-                        subtitle:
-                            'Проверьте доступ к данным кандидатов и попробуйте открыть экран заново.',
-                        actionLabel: 'Повторить',
-                        onPressed: _loadCandidates,
-                      ),
-                    ),
-                  ),
-                )
-              : _CompareContent(
-                  firstCandidate: _firstCandidate!,
-                  secondCandidate: _secondCandidate!,
-                  comparison: _comparison,
+          ? Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: AppResponsive.contentMaxWidth(context),
                 ),
+                child: Padding(
+                  padding: EdgeInsets.all(inset),
+                  child: _CompareStateCard(
+                    icon: Icons.compare_arrows_rounded,
+                    title: 'Не удалось собрать сравнение',
+                    subtitle:
+                        'Проверьте доступ к данным кандидатов и попробуйте открыть экран заново.',
+                    actionLabel: 'Повторить',
+                    onPressed: _loadCandidates,
+                  ),
+                ),
+              ),
+            )
+          : _CompareContent(
+              firstCandidate: _firstCandidate!,
+              secondCandidate: _secondCandidate!,
+              comparison: _comparison,
+            ),
     );
   }
 }
@@ -131,23 +135,19 @@ class _CompareContent extends StatelessWidget {
     final summary = _readText(comparison?['summaryText']);
     final recommendation = _readText(comparison?['recommendation']);
     final decisionFactors = _toStringList(comparison?['decisionFactors']);
-    final firstStrengths = _toStringList(comparison?['firstCandidateStrengths']);
-    final secondStrengths = _toStringList(comparison?['secondCandidateStrengths']);
+    final firstStrengths = _toStringList(
+      comparison?['firstCandidateStrengths'],
+    );
+    final secondStrengths = _toStringList(
+      comparison?['secondCandidateStrengths'],
+    );
+    final firstRedFlags = CandidateAiTools.detectRedFlags(firstCandidate);
+    final secondRedFlags = CandidateAiTools.detectRedFlags(secondCandidate);
     final winner = title.isEmpty
-        ? _winnerTitle(
-            firstCandidate,
-            secondCandidate,
-            firstScore,
-            secondScore,
-          )
+        ? _winnerTitle(firstCandidate, secondCandidate, firstScore, secondScore)
         : title;
     final summaryText = summary.isEmpty
-        ? _summaryText(
-            firstCandidate,
-            secondCandidate,
-            firstScore,
-            secondScore,
-          )
+        ? _summaryText(firstCandidate, secondCandidate, firstScore, secondScore)
         : summary;
 
     return Center(
@@ -181,12 +181,14 @@ class _CompareContent extends StatelessWidget {
                       candidate: firstCandidate,
                       opponentScore: secondScore,
                       aiStrengths: firstStrengths,
+                      redFlags: firstRedFlags,
                     ),
                     _CandidateComparePanel(
                       width: panelWidth,
                       candidate: secondCandidate,
                       opponentScore: firstScore,
                       aiStrengths: secondStrengths,
+                      redFlags: secondRedFlags,
                     ),
                   ],
                 );
@@ -359,12 +361,14 @@ class _CandidateComparePanel extends StatelessWidget {
     required this.candidate,
     required this.opponentScore,
     required this.aiStrengths,
+    required this.redFlags,
   });
 
   final double width;
   final Map<String, dynamic> candidate;
   final int opponentScore;
   final List<String> aiStrengths;
+  final List<String> redFlags;
 
   @override
   Widget build(BuildContext context) {
@@ -373,6 +377,7 @@ class _CandidateComparePanel extends StatelessWidget {
     final isLeader = score > opponentScore;
     final skills = _toStringList(candidate['skills']);
     final projects = _toStringList(candidate['projects']);
+    final shortlistLabel = CandidateAiTools.shortlistLabel(candidate);
 
     return Container(
       width: width,
@@ -414,6 +419,16 @@ class _CandidateComparePanel extends StatelessWidget {
                         color: const Color(0xFF64748B),
                       ),
                     ),
+                    const SizedBox(height: 4),
+                    Text(
+                      shortlistLabel,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: isLeader
+                            ? const Color(0xFF2563EB)
+                            : const Color(0xFF64748B),
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -424,7 +439,8 @@ class _CandidateComparePanel extends StatelessWidget {
           _CompareSection(
             title: 'Вердикт',
             child: Text(
-              (candidate['aiVerdict'] ?? 'Пояснение пока недоступно.').toString(),
+              (candidate['aiVerdict'] ?? 'Пояснение пока недоступно.')
+                  .toString(),
               style: theme.textTheme.bodyMedium?.copyWith(height: 1.5),
             ),
           ),
@@ -458,13 +474,32 @@ class _CandidateComparePanel extends StatelessWidget {
             ),
           ),
           _CompareSection(
+            title: 'Red flags',
+            child: redFlags.isEmpty
+                ? const Text('Критичных red flags не найдено.')
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: redFlags
+                        .take(3)
+                        .map(
+                          (item) => Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Text('- $item'),
+                          ),
+                        )
+                        .toList(),
+                  ),
+          ),
+          _CompareSection(
             title: 'Навыки',
             child: skills.isEmpty
                 ? const Text('-')
                 : Wrap(
                     spacing: 8,
                     runSpacing: 8,
-                    children: skills.map((skill) => _TagChip(label: skill)).toList(),
+                    children: skills
+                        .map((skill) => _TagChip(label: skill))
+                        .toList(),
                   ),
           ),
           _CompareSection(

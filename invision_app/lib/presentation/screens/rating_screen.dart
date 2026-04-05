@@ -1,11 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
-import '../../core/constants/api_constants.dart';
+import '../../core/analysis/candidate_ai_tools.dart';
 import '../../core/ui/responsive.dart';
 import '../../core/ui/theme_toggle_button.dart';
+import '../../data/services/shortlist_service.dart';
+import '../../data/services/user_service.dart';
 import 'candidate_compare_screen.dart';
 import 'candidate_details_screen.dart';
 
@@ -25,23 +24,34 @@ class RatingScreen extends StatefulWidget {
 
 class _RatingScreenState extends State<RatingScreen> {
   final _searchController = TextEditingController();
+  final _userService = UserService();
+  final _shortlistService = createShortlistService();
   final Set<int> _selectedCandidateIds = <int>{};
+  final Set<int> _shortlistedIds = <int>{};
 
-  List<dynamic> users = [];
+  List<Map<String, dynamic>> users = const [];
   bool isLoading = true;
   bool hasError = false;
+  bool showShortlistOnly = false;
 
   bool get _isAdmin => widget.role == 'ADMIN';
   String get _searchQuery => _searchController.text.trim().toLowerCase();
 
   List<Map<String, dynamic>> get _visibleUsers {
-    final allUsers = users.whereType<Map<String, dynamic>>().toList();
+    var allUsers = [...users];
+    if (_isAdmin && showShortlistOnly) {
+      allUsers = allUsers
+          .where((user) => _shortlistedIds.contains(user['id']))
+          .toList();
+    }
     if (!_isAdmin || _searchQuery.isEmpty) {
       return allUsers;
     }
 
     return allUsers.where((user) {
-      final name = ((user['fullName'] ?? user['name'] ?? '') as Object).toString().toLowerCase();
+      final name = ((user['fullName'] ?? user['name'] ?? '') as Object)
+          .toString()
+          .toLowerCase();
       final skills = _extractSkillsText(user).toLowerCase();
       return name.contains(_searchQuery) || skills.contains(_searchQuery);
     }).toList();
@@ -50,6 +60,7 @@ class _RatingScreenState extends State<RatingScreen> {
   @override
   void initState() {
     super.initState();
+    _loadShortlist();
     fetch();
   }
 
@@ -59,6 +70,18 @@ class _RatingScreenState extends State<RatingScreen> {
     super.dispose();
   }
 
+  Future<void> _loadShortlist() async {
+    final saved = await _shortlistService.load();
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _shortlistedIds
+        ..clear()
+        ..addAll(saved);
+    });
+  }
+
   Future<void> fetch() async {
     setState(() {
       isLoading = true;
@@ -66,18 +89,18 @@ class _RatingScreenState extends State<RatingScreen> {
     });
 
     try {
-      final response = await http.get(Uri.parse(ApiConstants.ratingUrl(widget.requesterId)));
+      final result = await _userService.fetchCandidates(
+        requesterId: widget.requesterId,
+      );
       if (!mounted) {
         return;
       }
 
-      if (response.statusCode == 200) {
-        setState(() {
-          users = jsonDecode(response.body) as List<dynamic>;
-          isLoading = false;
-        });
-        return;
-      }
+      setState(() {
+        users = result;
+        isLoading = false;
+      });
+      return;
     } catch (_) {
       if (!mounted) {
         return;
@@ -107,6 +130,17 @@ class _RatingScreenState extends State<RatingScreen> {
     });
   }
 
+  Future<void> _toggleShortlist(int candidateId) async {
+    setState(() {
+      if (_shortlistedIds.contains(candidateId)) {
+        _shortlistedIds.remove(candidateId);
+      } else {
+        _shortlistedIds.add(candidateId);
+      }
+    });
+    await _shortlistService.save(_shortlistedIds);
+  }
+
   void _openCompare() {
     if (_selectedCandidateIds.length != 2) {
       return;
@@ -128,6 +162,13 @@ class _RatingScreenState extends State<RatingScreen> {
     final theme = Theme.of(context);
     final inset = AppResponsive.inset(context);
     final visibleUsers = _visibleUsers;
+    final shortlistedUsers =
+        users.where((user) => _shortlistedIds.contains(user['id'])).toList()
+          ..sort(
+            (a, b) => CandidateAiTools.candidateScore(
+              b,
+            ).compareTo(CandidateAiTools.candidateScore(a)),
+          );
 
     return Scaffold(
       appBar: AppBar(
@@ -143,21 +184,38 @@ class _RatingScreenState extends State<RatingScreen> {
             Center(
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxWidth: AppResponsive.contentMaxWidth(context),
+                  maxWidth: AppResponsive.contentMaxWidth(
+                    context,
+                    desktop: 1180,
+                  ),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _HeaderCard(
-                      title: _isAdmin ? 'Список кандидатов' : 'Рейтинг участников',
+                      title: _isAdmin
+                          ? 'Список кандидатов'
+                          : 'Рейтинг участников',
                       subtitle: _isAdmin
-                          ? 'Ищите по имени или навыку, открывайте детали и сравнивайте кандидатов попарно.'
+                          ? 'Ищите, добавляйте в шорт-лист, находите красные флаги и сравнивайте кандидатов попарно.'
                           : 'Следите за результатами и общей картиной по участникам.',
-                      accentColor: _isAdmin ? const Color(0xFFEA580C) : const Color(0xFF059669),
+                      accentColor: _isAdmin
+                          ? const Color(0xFFEA580C)
+                          : const Color(0xFF059669),
                       totalCount: users.length,
                     ),
                     SizedBox(height: AppResponsive.sectionGap(context) - 6),
                     if (_isAdmin) ...[
+                      _ShortlistBoard(
+                        shortlistedUsers: shortlistedUsers,
+                        showShortlistOnly: showShortlistOnly,
+                        onToggleShowShortlist: () {
+                          setState(
+                            () => showShortlistOnly = !showShortlistOnly,
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 12),
                       _SearchCard(
                         controller: _searchController,
                         onChanged: (_) => setState(() {}),
@@ -168,7 +226,9 @@ class _RatingScreenState extends State<RatingScreen> {
                         onClear: _selectedCandidateIds.isEmpty
                             ? null
                             : () => setState(_selectedCandidateIds.clear),
-                        onCompare: _selectedCandidateIds.length == 2 ? _openCompare : null,
+                        onCompare: _selectedCandidateIds.length == 2
+                            ? _openCompare
+                            : null,
                       ),
                       const SizedBox(height: 16),
                     ],
@@ -181,7 +241,8 @@ class _RatingScreenState extends State<RatingScreen> {
                       _StateCard(
                         icon: Icons.cloud_off_rounded,
                         title: 'Не удалось загрузить данные',
-                        subtitle: 'Проверьте backend и попробуйте обновить экран.',
+                        subtitle:
+                            'Проверьте backend и попробуйте обновить экран.',
                         actionLabel: 'Повторить',
                         onPressed: fetch,
                       )
@@ -197,17 +258,22 @@ class _RatingScreenState extends State<RatingScreen> {
                       const _StateCard(
                         icon: Icons.search_off_rounded,
                         title: 'Ничего не найдено',
-                        subtitle: 'Попробуйте изменить запрос по имени или навыку.',
+                        subtitle:
+                            'Попробуйте изменить запрос или отключить фильтр шорт-листа.',
                       )
                     else ...[
                       Text(
                         _isAdmin ? 'Активные профили' : 'Участники рейтинга',
-                        style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       const SizedBox(height: 12),
                       ...List.generate(visibleUsers.length, (index) {
                         final user = visibleUsers[index];
-                        final candidateId = user['id'] is int ? user['id'] as int : null;
+                        final candidateId = user['id'] is int
+                            ? user['id'] as int
+                            : null;
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 12),
                           child: _CandidateCard(
@@ -216,10 +282,17 @@ class _RatingScreenState extends State<RatingScreen> {
                             user: user,
                             requesterId: widget.requesterId,
                             isSelectedForCompare:
-                                candidateId != null && _selectedCandidateIds.contains(candidateId),
+                                candidateId != null &&
+                                _selectedCandidateIds.contains(candidateId),
+                            isShortlisted:
+                                candidateId != null &&
+                                _shortlistedIds.contains(candidateId),
                             onToggleCompare: candidateId == null
                                 ? null
                                 : () => _toggleCandidateSelection(candidateId),
+                            onToggleShortlist: candidateId == null
+                                ? null
+                                : () => _toggleShortlist(candidateId),
                           ),
                         );
                       }),
@@ -315,6 +388,97 @@ class _HeaderCard extends StatelessWidget {
   }
 }
 
+class _ShortlistBoard extends StatelessWidget {
+  const _ShortlistBoard({
+    required this.shortlistedUsers,
+    required this.showShortlistOnly,
+    required this.onToggleShowShortlist,
+  });
+
+  final List<Map<String, dynamic>> shortlistedUsers;
+  final bool showShortlistOnly;
+  final VoidCallback onToggleShowShortlist;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(AppResponsive.isMobile(context) ? 16 : 18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(AppResponsive.cardRadius(context)),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x120F172A),
+            blurRadius: 20,
+            offset: Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Панель шорт-листа',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                ),
+              ),
+              FilterChip(
+                selected: showShortlistOnly,
+                onSelected: (_) => onToggleShowShortlist(),
+                label: const Text('Только шорт-лист'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            shortlistedUsers.isEmpty
+                ? 'Пока нет сохраненных кандидатов. Отмечай сильные профили звездой прямо в карточке.'
+                : 'Сильные профили под рукой. Можно быстро вернуться к лучшим кандидатам без повторного поиска.',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: const Color(0xFF64748B),
+              height: 1.45,
+            ),
+          ),
+          if (shortlistedUsers.isNotEmpty) ...[
+            const SizedBox(height: 14),
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: shortlistedUsers
+                  .take(6)
+                  .map(
+                    (user) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFF7ED),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Text(
+                        '${(user['fullName'] ?? 'Кандидат').toString()} · ${CandidateAiTools.candidateScore(user)}',
+                        style: const TextStyle(
+                          color: Color(0xFF9A3412),
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
 class _CompareToolbar extends StatelessWidget {
   const _CompareToolbar({
     required this.selectedCount,
@@ -331,7 +495,9 @@ class _CompareToolbar extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(AppResponsive.isMobile(context) ? 14 : 16),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.55),
+        color: Theme.of(
+          context,
+        ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.55),
         borderRadius: BorderRadius.circular(AppResponsive.cardRadius(context)),
       ),
       child: Wrap(
@@ -343,12 +509,11 @@ class _CompareToolbar extends StatelessWidget {
             selectedCount == 0
                 ? 'Выберите двух кандидатов для сравнения'
                 : 'Выбрано для сравнения: $selectedCount из 2',
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+            style: Theme.of(
+              context,
+            ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
           ),
-          OutlinedButton(
-            onPressed: onClear,
-            child: const Text('Сбросить'),
-          ),
+          OutlinedButton(onPressed: onClear, child: const Text('Сбросить')),
           ElevatedButton.icon(
             onPressed: onCompare,
             icon: const Icon(Icons.compare_rounded),
@@ -367,7 +532,9 @@ class _CandidateCard extends StatelessWidget {
     required this.user,
     required this.requesterId,
     required this.isSelectedForCompare,
+    required this.isShortlisted,
     this.onToggleCompare,
+    this.onToggleShortlist,
   });
 
   final int index;
@@ -375,7 +542,9 @@ class _CandidateCard extends StatelessWidget {
   final Map<String, dynamic> user;
   final int requesterId;
   final bool isSelectedForCompare;
+  final bool isShortlisted;
   final VoidCallback? onToggleCompare;
+  final VoidCallback? onToggleShortlist;
 
   bool get _isAdmin => role == 'ADMIN';
 
@@ -385,11 +554,13 @@ class _CandidateCard extends StatelessWidget {
     final title = _isAdmin
         ? (user['fullName'] ?? 'Без имени').toString()
         : (user['name'] ?? 'Участник').toString();
-    final score = _parseScore(user['aiScore'] ?? user['score']);
+    final score = CandidateAiTools.candidateScore(user);
     final phone = (user['phoneNumber'] ?? '').toString();
     final submitted = user['submitted'] == true;
     final canOpenDetails = _isAdmin && user['id'] is int;
     final canCompare = _isAdmin && user['id'] is int;
+    final redFlags = CandidateAiTools.detectRedFlags(user);
+    final shortlistLabel = CandidateAiTools.shortlistLabel(user);
     final cardPadding = AppResponsive.isMobile(context) ? 16.0 : 18.0;
     final cardRadius = AppResponsive.isMobile(context) ? 20.0 : 22.0;
 
@@ -440,17 +611,41 @@ class _CandidateCard extends StatelessWidget {
                       children: [
                         Text(
                           title,
-                          style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          _isAdmin ? 'Профиль кандидата' : 'Участник рейтинга',
+                          shortlistLabel,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: const Color(0xFF64748B),
                           ),
                         ),
                       ],
                     ),
+                  );
+
+                  final trailing = Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (onToggleShortlist != null)
+                        IconButton(
+                          tooltip: isShortlisted
+                              ? 'Убрать из шорт-листа'
+                              : 'Добавить в шорт-лист',
+                          onPressed: onToggleShortlist,
+                          icon: Icon(
+                            isShortlisted
+                                ? Icons.star_rounded
+                                : Icons.star_border_rounded,
+                            color: isShortlisted
+                                ? const Color(0xFFEA580C)
+                                : const Color(0xFF94A3B8),
+                          ),
+                        ),
+                      _ScoreChip(score: score),
+                    ],
                   );
 
                   if (compact) {
@@ -465,7 +660,7 @@ class _CandidateCard extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 12),
-                        _ScoreChip(score: score),
+                        trailing,
                       ],
                     );
                   }
@@ -475,7 +670,8 @@ class _CandidateCard extends StatelessWidget {
                       _RankBadge(index: index + 1),
                       const SizedBox(width: 12),
                       info,
-                      _ScoreChip(score: score),
+                      const SizedBox(width: 12),
+                      trailing,
                     ],
                   );
                 },
@@ -497,8 +693,9 @@ class _CandidateCard extends StatelessWidget {
                           : Icons.pending_actions_rounded,
                       label: 'Анкета',
                       value: submitted ? 'Заполнена' : 'Не заполнена',
-                      accentColor:
-                          submitted ? const Color(0xFF059669) : const Color(0xFFB45309),
+                      accentColor: submitted
+                          ? const Color(0xFF059669)
+                          : const Color(0xFFB45309),
                     ),
                   if (_isAdmin && phone.isNotEmpty)
                     _InfoChip(
@@ -506,8 +703,30 @@ class _CandidateCard extends StatelessWidget {
                       label: 'Телефон',
                       value: phone,
                     ),
+                  _InfoChip(
+                    icon: Icons.flag_rounded,
+                    label: 'Красные флаги',
+                    value: '${redFlags.length}',
+                    accentColor: redFlags.isEmpty
+                        ? const Color(0xFF059669)
+                        : const Color(0xFFB45309),
+                  ),
                 ],
               ),
+              if (redFlags.isNotEmpty) ...[
+                const SizedBox(height: 14),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFF7ED),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text(
+                    redFlags.first,
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                ),
+              ],
               if (canOpenDetails || canCompare) ...[
                 const SizedBox(height: 16),
                 Wrap(
@@ -542,13 +761,6 @@ class _CandidateCard extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  int _parseScore(dynamic value) {
-    if (value is int) {
-      return value;
-    }
-    return int.tryParse(value.toString()) ?? 0;
   }
 }
 
@@ -627,8 +839,8 @@ class _ScoreChip extends StatelessWidget {
     final color = score >= 90
         ? const Color(0xFF059669)
         : score >= 75
-            ? const Color(0xFF2563EB)
-            : const Color(0xFFB45309);
+        ? const Color(0xFF2563EB)
+        : const Color(0xFFB45309);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -637,7 +849,7 @@ class _ScoreChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
       ),
       child: Text(
-        '$score pts',
+        '$score баллов',
         style: TextStyle(color: color, fontWeight: FontWeight.w700),
       ),
     );
@@ -713,7 +925,9 @@ class _StateCard extends StatelessWidget {
           const SizedBox(height: 14),
           Text(
             title,
-            style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),

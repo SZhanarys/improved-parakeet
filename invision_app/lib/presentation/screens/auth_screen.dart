@@ -26,10 +26,11 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Future<void> _submit() async {
-    if (_emailController.text.trim().isEmpty || _passwordController.text.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all fields')),
-      );
+    if (_emailController.text.trim().isEmpty ||
+        _passwordController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Заполните все поля')));
       return;
     }
 
@@ -52,7 +53,11 @@ class _AuthScreenState extends State<AuthScreen> {
 
         if (userId == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Login failed: user id is missing')),
+            const SnackBar(
+              content: Text(
+                'Ошибка входа: отсутствует идентификатор пользователя',
+              ),
+            ),
           );
           return;
         }
@@ -66,7 +71,9 @@ class _AuthScreenState extends State<AuthScreen> {
       }
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Login failed: invalid email or password')),
+        const SnackBar(
+          content: Text('Ошибка входа: неверный email или пароль'),
+        ),
       );
       return;
     }
@@ -83,14 +90,16 @@ class _AuthScreenState extends State<AuthScreen> {
 
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account created. Now you can login.')),
+        const SnackBar(content: Text('Аккаунт создан. Теперь можно войти.')),
       );
       setState(() => _isLogin = true);
       return;
     }
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Registration failed. Email might be taken.')),
+      const SnackBar(
+        content: Text('Ошибка регистрации. Возможно, email уже занят.'),
+      ),
     );
   }
 
@@ -109,8 +118,11 @@ class _AuthScreenState extends State<AuthScreen> {
                 const Icon(Icons.lock_person, size: 80, color: Colors.blue),
                 const SizedBox(height: 20),
                 Text(
-                  _isLogin ? 'Welcome to Invision' : 'Create Account',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  _isLogin ? 'Вход в Invision' : 'Создание аккаунта',
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 30),
                 TextField(
@@ -126,7 +138,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 TextField(
                   controller: _passwordController,
                   decoration: const InputDecoration(
-                    labelText: 'Password',
+                    labelText: 'Пароль',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.lock),
                   ),
@@ -145,7 +157,9 @@ class _AuthScreenState extends State<AuthScreen> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
-                          child: Text(_isLogin ? 'LOGIN' : 'REGISTER'),
+                          child: Text(
+                            _isLogin ? 'Войти' : 'Зарегистрироваться',
+                          ),
                         ),
                       ),
                 const SizedBox(height: 16),
@@ -155,8 +169,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   },
                   child: Text(
                     _isLogin
-                        ? "Don't have an account? Register now"
-                        : "Already have an account? Login",
+                        ? 'Нет аккаунта? Зарегистрируйтесь'
+                        : 'Уже есть аккаунт? Войти',
                   ),
                 ),
               ],
